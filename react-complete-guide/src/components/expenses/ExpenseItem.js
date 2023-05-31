@@ -9,7 +9,9 @@ function ExpenseItem(props) {
     const [title, setTitle] = useState(props.title);
 
     function clickHandler() {
-        setTitle(title + " oi");
+        setTitle(prevTitle => {
+            return prevTitle + " oi";
+        });
     }
 
 
