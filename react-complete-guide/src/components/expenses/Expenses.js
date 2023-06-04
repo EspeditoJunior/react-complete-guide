@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ExpenseItem from './ExpenseItem'
+import ExpensesList from './ExpensesList';
 import Card from '../ui/Card';
 
 import './Expenses.css'
@@ -10,17 +10,20 @@ function Expenses(props) {
     const [filter,setFilter] = useState('2020');
 
     function saveFilter(selectedFilter){
-        console.log("filter aqui:" + selectedFilter);
         setFilter(selectedFilter);
     }
+
+    const filteredExpenses = props.expenses.filter(e => {
+        return e.date.getFullYear().toString() === filter;
+    });
+
+    //let expensesCount = <p>No expenses found.</p>;
 
     return (
         <div>
             <Card className="expenses">
                 <ExpensesFilter onSelectFilter={saveFilter} filter={filter} />
-                {
-                    props.expenses.map(e => <ExpenseItem title={e.title} amount={e.amount} date={e.date}/>)
-                }
+                <ExpensesList items={filteredExpenses}/>
             </Card>
         </div>
     );
